@@ -73,7 +73,7 @@ $(function(){
     },
 
     render: function() {
-      this.$e1.html(this.template(this.model.toJSON()));
+      this.$el.html(this.template(this.model.toJSON()));
       this.input = this.$('.edit');
       return this;
     },
@@ -87,7 +87,7 @@ $(function(){
     },
 
     edit: function() {
-      this.$e1.addClass("editing");
+      this.$el.addClass("editing");
       this.input.focus();
     },
 
@@ -95,7 +95,7 @@ $(function(){
       var value = this.input.val();
       if (!value) this.clear();
       this.model.save({title: value});
-      this.$e1.removeClass("editing");
+      this.$el.removeClass("editing");
     },
 
     updateOnEnter: function(e) {
@@ -111,7 +111,7 @@ $(function(){
 
   var AppView = Backbone.View.extend({
     
-    e1: $("#tallyapp"),
+    el: $("#tallyapp"),
 
     events: {
       "keypress #new-tally": "createOnEnter"
@@ -140,7 +140,7 @@ $(function(){
 
     addOne: function(tally) {
       var view = new TallyView({model: tally});
-      this.$("#tally-list").append(view.render().e1);
+      this.$("#tally-list").append(view.render().el);
     },
 
     addAll: function() {
