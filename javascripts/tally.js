@@ -111,7 +111,7 @@ $(function(){
 
   var AppView = Backbone.View.extend({
     
-    e1: $("#tallyapp");
+    e1: $("#tallyapp"),
 
     events: {
       "keypress #new-tally": "createOnEnter"
@@ -125,7 +125,7 @@ $(function(){
       Tallys.on('reset', this.addAll, this);
       Tallys.on('all', this.render, this);
 
-      this.main = $('#main');
+      this.main = $('#tallys');
 
       Tallys.fetch();
     },
