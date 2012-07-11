@@ -1,7 +1,6 @@
 $(function(){
 
   var Tally = Backbone.Model.extend({
-  
 
     defaults: function() {
       return {
@@ -51,6 +50,8 @@ $(function(){
 
   });
 
+  var Tallys = new TallyList;
+
   var TallyView = Backbone.View.extend({
     
     tagName:  "li",
@@ -67,13 +68,12 @@ $(function(){
     },
 
     initialize: function() {
-      this.model.bind('change', this.render, this);
-      this.model.bind('destroy', this.remove, this);
+      this.model.on('change', this.render, this);
+      this.model.on('destroy', this.remove, this);
     },
 
     render: function() {
       this.$e1.html(this.template(this.model.toJSON()));
-      this.$e1.toggleClass('done', this.model.get('done'));
       this.input = this.$('.edit');
       return this;
     },
@@ -108,4 +108,55 @@ $(function(){
 
   });
 
-}
+
+  var AppView = Backbone.View.extend({
+    
+    e1: $("#tallyapp");
+
+    events: {
+      "keypress #new-tally": "createOnEnter"
+    },
+
+    initialize: function() {
+      
+      this.input = this.$("#new-tally");
+      
+      Tallys.on('add', this.addOne, this);
+      Tallys.on('reset', this.addAll, this);
+      Tallys.on('all', this.render, this);
+
+      this.main = $('#main');
+
+      Tallys.fetch();
+    },
+
+    render: function() {
+      if (Tallys.length) {
+        this.main.show();
+      } else {
+        this.main.hide();
+      }
+    },
+
+    addOne: function(tally) {
+      var view = new TallyView({model: tally});
+      this.$("#tally-list").append(view.render().e1);
+    },
+
+    addAll: function() {
+      Tallys.each(this.addOne);
+    },
+
+    createOnEnter: function(e) {
+      if (e.keyCode != 13) return;
+      if (!this.input.val()) return;
+
+      Tallys.create({title: this.input.val()});
+      this.input.val('');
+    }
+
+  });
+
+  var App = new AppView;
+
+});
