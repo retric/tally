@@ -1,0 +1,111 @@
+$(function(){
+
+  var Tally = Backbone.Model.extend({
+  
+
+    defaults: function() {
+      return {
+        title: "empty tally...",
+        order: Tallys.nextOrder(),
+        count: 0
+      };
+    },
+
+    initialize: function() {
+      if (!this.get("title")) {
+        this.set({"title": this.defaults.title});
+      }
+    },
+
+    increment: function() {
+      this.set({"count": this.get("count")+1});
+    },
+
+    decrement: function() {
+      var cur_count = this.get("count");  
+      if (cur_count > 0) {
+        this.set({"count": cur_count-1});
+      }
+    },
+
+    clear: function() {
+      this.destroy();
+    }
+
+  });
+
+  var TallyList = Backbone.Collection.extend({
+  
+    model: Tally,
+
+    localStorage: new Store("tallys-backbone"),
+
+    nextOrder: function() {
+      if (!this.length) return 1;
+      return this.last().get('order');
+    },
+
+    comparator: function(tally) {
+      return tally.get('order');
+    }
+
+  });
+
+  var TallyView = Backbone.View.extend({
+    
+    tagName:  "li",
+    
+    template: _.template($('#item-template').html()),
+
+    events: {
+      "click .inc"      : "inc",
+      "click .dec"      : "dec",
+      "dblclick .view"  : "edit",
+      "click a.destroy" : "clear",
+      "keypress .edit"  : "updateOnEnter",
+      "blur .edit"      : "close"
+    },
+
+    initialize: function() {
+      this.model.bind('change', this.render, this);
+      this.model.bind('destroy', this.remove, this);
+    },
+
+    render: function() {
+      this.$e1.html(this.template(this.model.toJSON()));
+      this.$e1.toggleClass('done', this.model.get('done'));
+      this.input = this.$('.edit');
+      return this;
+    },
+
+    inc: function() {
+      this.model.increment();
+    },
+
+    dec: function() {
+      this.model.decrement();
+    },
+
+    edit: function() {
+      this.$e1.addClass("editing");
+      this.input.focus();
+    },
+
+    close: function() {
+      var value = this.input.val();
+      if (!value) this.clear();
+      this.model.save({title: value});
+      this.$e1.removeClass("editing");
+    },
+
+    updateOnEnter: function(e) {
+      if (e.keyCode == 13) this.close();
+    },
+
+    clear: function() {
+      this.model.clear();
+    }
+
+  });
+
+}
