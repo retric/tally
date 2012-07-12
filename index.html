@@ -27,6 +27,7 @@
             <tr>
               <th class="title">Title</th>
               <th class="counter">Count</th>
+              <th class="change">Change</th>
             </tr>
           </table>
         </div>
@@ -39,11 +40,18 @@
 
     <script type="text/template" id="item-template">
       <td class="title">
-      <div class="view"><label><%= title %></label>
-      <a class="destroy"></a></div>		
-      <input class="edit" type="text" value="<%= title %>" />
+        <div class="view"><label><%= title %></label>
+        <a class="destroy"></a></div>
+        <input class="edit" type="text" value="<%= title %>" />
       </td>
-      <td class="counter"><%= count %> <span class="crement inc">+</span> <span class="crement dec">-</span></td>
+      <td class="counter">
+        <span class="view"><%= count %></span>
+        <input class="edit" type="text" value="<%= count %>" />
+      </td>
+      <td class="change">
+        <span class="crement inc">+</span> 
+        <span class="crement dec">-</span>
+      </td>
     </script>
   </body>
 </html>

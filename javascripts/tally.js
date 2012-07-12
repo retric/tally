@@ -17,7 +17,7 @@ $(function(){
     },
 
     increment: function() {
-      this.set({"count": this.get("count")+1});
+      this.set({"count": Number(this.get("count"))+1});
     },
 
     decrement: function() {
@@ -59,26 +59,30 @@ $(function(){
     template: _.template($('#item-template').html()),
 
     events: {
-      "click .inc"      : "inc",
-      "click .dec"      : "dec",
-      "dblclick .view"  : "edit",
-      "click a.destroy" : "clear",
-      "keypress .edit"  : "updateOnEnter",
-      "blur .edit"      : "close"
-    },
+      "click .inc"        : "inc",
+      "click .dec"        : "dec",
+      "dblclick .title"   : "edit_title",
+      "dblclick .counter" : "edit_count",
+      "click a.destroy"   : "clear",
+      "keypress .title .edit"    : "updateOnEnter",
+      "keypress .counter .edit"    : "updateOnEnterc",
+      "blur .title .edit" : "close_title",
+      "blur .counter .edit" : "close_count"    },
 
     initialize: function() {
       this.model.on('change', this.render, this);
       this.model.on('destroy', this.remove, this);
-	},
+  },
 
     render: function() {
       this.$el.html(this.template(this.model.toJSON()));
-      this.input = this.$('.edit');
-	  this.$('.crement').hover( function() {$(this).css({'cursor': 'pointer',
-													     'text-decoration': 'underline'});},
-								function() {$(this).css({'cursor': 'none',
-														 'text-decoration': 'none'});});
+      //this.input = this.$('.edit');
+      this.$('.crement').hover( function() {$(this).css(
+                                            {'cursor': 'pointer',
+                                           'text-decoration': 'underline'});},
+                                function() {$(this).css(
+                                            {'cursor': 'none',
+                                             'text-decoration': 'none'});});
       return this;
     },
 
@@ -90,20 +94,40 @@ $(function(){
       this.model.decrement();
     },
 
-    edit: function() {
-      this.$el.addClass("editing");
-      this.input.focus();
+    edit_title: function() {
+      var target = this.$('.title');
+      target.addClass("editing");
+      target.find('.edit').focus();
+    },
+    
+    edit_count: function() {
+      var target = this.$('.counter');
+      target.addClass("editing");
+      target.find('.edit').focus();
     },
 
-    close: function() {
-      var value = this.input.val();
+    close_title: function() {
+      var target = this.$('.title');
+      target.removeClass("editing");
+      //var value = this.input.val();
+      var value = target.find('.edit').val();
       if (!value) this.clear();
-      this.model.save({title: value});
-      this.$el.removeClass("editing");
+      this.model.save({title: value});   
+    },
+    
+    close_count: function() {
+      var target = this.$('.counter');
+      target.removeClass("editing");
+      var value = target.find('.edit').val();
+      this.model.save({count: value});
     },
 
     updateOnEnter: function(e) {
-      if (e.keyCode == 13) this.close();
+      if (e.keyCode == 13) this.close_title();
+    },
+    
+    updateOnEnterc : function(e) {
+      if (e.keyCode == 13) this.close_count();
     },
 
     clear: function() {
