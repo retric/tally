@@ -1,112 +1,112 @@
 html,
 body {
-		margin: 0;
-		padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-	font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
-	line-height: 1.4em;
-	background: #cceeff;
-	color: #333333;
-	width: 520px;
-	margin: 0 auto;
-	-webkit-font-smoothing: antialiased;
+  font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.4em;
+  background: #cceeff;
+  color: #333333;
+  width: 520px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
 }
 
 #create-tally {
-	padding: 10px;
+  padding: 10px;
 }
 
 #create-tally .desc{
-	padding: 10px;
+  padding: 10px;
 }
 
 #tallyapp h1 {
-	font-size: 36px;
-	font-weight: bold;
-	padding: 0 0 0 0;
+  font-size: 36px;
+  font-weight: bold;
+  padding: 0 0 0 0;
 }
 
 #new-tally {
-	width: 466px;
-	font-size: 24px;
-	font-family: inherit;
-	line-height: 1.4em;
-	padding: 6px;
+  width: 466px;
+  font-size: 24px;
+  font-family: inherit;
+  line-height: 1.4em;
+  padding: 6px;
 }
 
 #tallys {
-	background: #fff;
-	padding: 10px;
+  background: #fff;
+  padding: 10px;
 }
 
 #tally-list {
-	border: 1px solid #cccccc;
-	border-collapse:collapse;
-	width: 100%;
+  border: 1px solid #cccccc;
+  border-collapse:collapse;
+  width: 100%;
 }
 
 #tally-list th {
-	font-size: 24px;
-	padding: 5px 10px;
-	border: 1px solid #cccccc;
+  font-size: 24px;
+  padding: 5px 10px;
+  border: 1px solid #cccccc;
 }
 
 #tally-list .edit {
-	display: none;
+  display: none;
 }
 
 #tally-list .editing .edit {
-	display: block;
+  display: block;
 }
 
 #tally-list .editing .view {
-	display: none;
+  display: none;
 }
 
 #tally-list .view {
-	position: relative;
+  position: relative;
 }
 
 #tally-list input[type="text"] {
-	width: 100%;
-	font-size: 16px;
-	font-family: inherit;
-	line-height: 1.4em;
-	padding: 6px;
+  width: 100%;
+  font-size: 16px;
+  font-family: inherit;
+  line-height: 1.4em;
+  padding: 6px;
 }
 
 #tally-list td {
-	font-size: 16px;
-	padding: 5px 10px;
-	border: 1px solid #cccccc;
+  font-size: 16px;
+  padding: 5px 10px;
+  border: 1px solid #cccccc;
 }
 
 #tally-list .title {
-	width: 80%;
-	text-align: left;
+  width: 80%;
+  text-align: left;
 }
 
 #tally-list .counter {
-	width: 20%;
-	text-align: center;
+  width: 20%;
+  text-align: center;
 }
 
 #tally-list .destroy {
-	position: absolute;
-	right: 5px;
-	display: none;
-	cursor: pointer;
-	width: 20px;
-	height: 20px;
-	background: url(../destroy.png) no-repeat;
+  position: absolute;
+  right: 5px;
+  display: none;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  background: url(../destroy.png) no-repeat;
 }
 
 #tally-list td:hover .destroy {
-	display: inline;
+  display: inline;
 }
 
 #tally-list .destroy:hover {
-	background-position: 0 -20px;
+  background-position: 0 -20px;
 }
