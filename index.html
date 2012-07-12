@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Tally</title>
-    <link rel="stylesheet" href="stylesheets/tallys.css" type="text/css"/>
+    <link rel="stylesheet" href="stylesheets/tally.css" type="text/css"/>
     <script language="javascript" src="javascripts/json2.js" type="text/javascript"></script>
     <script language="javascript" src="javascripts/jquery-1.7.2.js" type="text/javascript"></script>
     <script language="javascript" src="javascripts/underscore.js" type="text/javascript"></script>
@@ -19,11 +19,16 @@
 
       <div class='content'>
         <div id='create-tally'>
-          <input id='new-tally' placeholder='What do you want to tally?' type='text' />
-          <span class='u1-tooltip-top'>Press Enter to create this object</span>
+          <input id='new-tally' placeholder='What do you want to count?' type='text' />
+          <div class='desc'>Press Enter to create an object</div>
         </div>
         <div id='tallys'>
-          <ul id='tally-list'></ul>
+          <table id='tally-list'>
+			<tr>
+				<th class="title">Title</th>
+				<th class="counter">Count</th>
+		    </tr>
+		  </table>
         </div>
       </div>
 
@@ -33,11 +38,9 @@
     <!-- Templates -->
 
     <script type="text/template" id="item-template">
-      <div class="view">
-        <label><%= title %></label>
-        <%= count %>
-      </div>
-      <input class="edit" type="text" value="<%= title %>" />
+      <td class="title"><label><%= title %></label>
+	  <input class="edit" type="text" value="<%= title %>" /></td>
+      <td class="counter"><%= count %> + -</td>
     </script>
   </body>
 </html>

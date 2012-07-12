@@ -1,0 +1,75 @@
+html,
+body {
+		margin: 0;
+		padding: 0;
+}
+
+body {
+	font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+	line-height: 1.4em;
+	background: #cceeff;
+	color: #333333;
+	width: 520px;
+	margin: 0 auto;
+	-webkit-font-smoothing: antialiased;
+}
+
+#create-tally {
+	padding: 10px;
+}
+
+#create-tally .desc{
+	padding: 10px;
+}
+
+#tallyapp h1 {
+	font-size: 36px;
+	font-weight: bold;
+	padding: 0 0 0 0;
+}
+
+#tallyapp input[type="text"] {
+	width: 466px;
+	font-size: 24px;
+	font-family: inherit;
+	line-height: 1.4em;
+	padding: 6px;
+}
+
+#tallys {
+	background: #fff;
+	padding: 10px;
+}
+
+#tally-list {
+	border: 1px solid #cccccc;
+	border-collapse:collapse;
+	width: 100%;
+}
+
+#tally-list th {
+	font-size: 24px;
+	padding: 5px 10px;
+	border: 1px solid #cccccc;
+}
+
+#tally-list .edit {
+	display: none;
+}
+
+#tally-list td {
+	font-size: 16px;
+	padding: 5px 10px;
+	border: 1px solid #cccccc;
+}
+
+#tally-list .title {
+	width: 80%;
+	text-align: left;
+}
+
+#tally-list .counter {
+	width: 20%;
+	text-align: center;
+}
+

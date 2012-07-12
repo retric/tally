@@ -54,7 +54,7 @@ $(function(){
 
   var TallyView = Backbone.View.extend({
     
-    tagName:  "li",
+    tagName:  "tr",
     
     template: _.template($('#item-template').html()),
 
