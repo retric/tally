@@ -38,9 +38,12 @@
     <!-- Templates -->
 
     <script type="text/template" id="item-template">
-      <td class="title"><label><%= title %></label>
-	  <input class="edit" type="text" value="<%= title %>" /></td>
-      <td class="counter"><%= count %> + -</td>
+      <td class="title">
+		<div class="view"><label><%= title %></label>
+		<a class="destroy"></a></div>		
+		<input class="edit" type="text" value="<%= title %>" />
+	  </td>
+      <td class="counter"><%= count %> <span class="crement inc">+</span> <span class="crement dec">-</span></td>
     </script>
   </body>
 </html>

@@ -28,7 +28,7 @@ body {
 	padding: 0 0 0 0;
 }
 
-#tallyapp input[type="text"] {
+#new-tally {
 	width: 466px;
 	font-size: 24px;
 	font-family: inherit;
@@ -57,6 +57,26 @@ body {
 	display: none;
 }
 
+#tally-list .editing .edit {
+	display: block;
+}
+
+#tally-list .editing .view {
+	display: none;
+}
+
+#tally-list .view {
+	position: relative;
+}
+
+#tally-list input[type="text"] {
+	width: 100%;
+	font-size: 16px;
+	font-family: inherit;
+	line-height: 1.4em;
+	padding: 6px;
+}
+
 #tally-list td {
 	font-size: 16px;
 	padding: 5px 10px;
@@ -73,3 +93,20 @@ body {
 	text-align: center;
 }
 
+#tally-list .destroy {
+	position: absolute;
+	right: 5px;
+	display: none;
+	cursor: pointer;
+	width: 20px;
+	height: 20px;
+	background: url(../destroy.png) no-repeat;
+}
+
+#tally-list td:hover .destroy {
+	display: inline;
+}
+
+#tally-list .destroy:hover {
+	background-position: 0 -20px;
+}

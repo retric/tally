@@ -70,11 +70,15 @@ $(function(){
     initialize: function() {
       this.model.on('change', this.render, this);
       this.model.on('destroy', this.remove, this);
-    },
+	},
 
     render: function() {
       this.$el.html(this.template(this.model.toJSON()));
       this.input = this.$('.edit');
+	  this.$('.crement').hover( function() {$(this).css({'cursor': 'pointer',
+													     'text-decoration': 'underline'});},
+								function() {$(this).css({'cursor': 'none',
+														 'text-decoration': 'none'});});
       return this;
     },
 
@@ -104,7 +108,7 @@ $(function(){
 
     clear: function() {
       this.model.clear();
-    }
+    },
 
   });
 
