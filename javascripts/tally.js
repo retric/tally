@@ -56,6 +56,8 @@ $(function(){
     
     tagName:  "tr",
     
+    className: "entry",
+    
     template: _.template($('#item-template').html()),
 
     events: {
@@ -76,7 +78,6 @@ $(function(){
 
     render: function() {
       this.$el.html(this.template(this.model.toJSON()));
-      //this.input = this.$('.edit');
       this.$('.crement').hover( function() {$(this).css(
                                             {'cursor': 'pointer',
                                            'text-decoration': 'underline'});},
@@ -109,7 +110,6 @@ $(function(){
     close_title: function() {
       var target = this.$('.title');
       target.removeClass("editing");
-      //var value = this.input.val();
       var value = target.find('.edit').val();
       if (!value) this.clear();
       this.model.save({title: value});   
@@ -159,6 +159,12 @@ $(function(){
       Tallys.on('all', this.render, this);
 
       this.main = $('#tallys');
+      this.$('.header').hover( function() {$(this).css(
+                                            {'cursor': 'pointer',
+                                           'text-decoration': 'underline'});},
+                                function() {$(this).css(
+                                            {'cursor': 'none',
+                                             'text-decoration': 'none'});});
 
       Tallys.fetch();
     },
@@ -166,6 +172,16 @@ $(function(){
     render: function() {
       if (Tallys.length) {
         this.main.show();
+        var titles = Tallys.pluck("title");
+        $("#new-tally").autocomplete({
+          source: titles,
+          minLength: 1,
+          select: function(event, ui) {
+            var selectModel = Tallys.where({title: ui.item.value})[0];
+            console.log(selectModel);
+            selectModel.increment();
+          }
+        });
       } else {
         this.main.hide();
       }
@@ -180,9 +196,8 @@ $(function(){
         return resort.call(this, tally);
       };
       this.numsortplus *= -1;
+      this.$(".entry").remove();
       Tallys.sort();
-      this.$("#tally-list").empty();
-      this.addAll();
     },
 
     resorttitl: function() {
@@ -194,9 +209,8 @@ $(function(){
         return resort.call(this, tally1, tally2);
       };
       this.alphasortplus *= -1;
+      this.$(".entry").remove();
       Tallys.sort();
-      this.$("#tally-list").empty();
-      this.addAll();
     },
 
     addOne: function(tally) {
@@ -205,7 +219,6 @@ $(function(){
     },
 
     addAll: function() {
-      this.$("#tally-list").append('<tr><th class="title" id="titles">Title</th><th class="counter" id="counts">Count</th><th class="change">Change</th></tr>'); 
       Tallys.each(this.addOne);
     },
 
