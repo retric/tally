@@ -141,8 +141,13 @@ $(function(){
     
     el: $("#tallyapp"),
 
+    numsortplus: 1,
+    alphasortplus: 1,
+
     events: {
-      "keypress #new-tally": "createOnEnter"
+      "keypress #new-tally": "createOnEnter",
+      "click #counts": "resortnum",
+      "click #titles": "resorttitl"
     },
 
     initialize: function() {
@@ -166,12 +171,41 @@ $(function(){
       }
     },
 
+    resortnum: function() {
+      var numsortval = this.numsortplus;
+      Tallys.comparator = function(tally) {
+        resort = function(tallyin) {
+          return numsortval*tallyin.get('count'); 
+        }
+        return resort.call(this, tally);
+      };
+      this.numsortplus *= -1;
+      Tallys.sort();
+      this.$("#tally-list").empty();
+      this.addAll();
+    },
+
+    resorttitl: function() {
+      var alphasortval = this.alphasortplus;
+      Tallys.comparator = function(tally1, tally2) {
+        resort = function(tallyin1, tallyin2) {
+          return alphasortval*(tallyin1.get('title')).localeCompare(tallyin2.get('title'));
+        }
+        return resort.call(this, tally1, tally2);
+      };
+      this.alphasortplus *= -1;
+      Tallys.sort();
+      this.$("#tally-list").empty();
+      this.addAll();
+    },
+
     addOne: function(tally) {
       var view = new TallyView({model: tally});
       this.$("#tally-list").append(view.render().el);
     },
 
     addAll: function() {
+      this.$("#tally-list").append('<tr><th class="title" id="titles">Title</th><th class="counter" id="counts">Count</th><th class="change">Change</th></tr>'); 
       Tallys.each(this.addOne);
     },
 
