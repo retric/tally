@@ -18,6 +18,7 @@ $(function(){
 
     increment: function() {
       this.set({"count": Number(this.get("count"))+1});
+      this.save();
     },
 
     decrement: function() {
@@ -25,6 +26,7 @@ $(function(){
       if (cur_count > 0) {
         this.set({"count": cur_count-1});
       }
+      this.save();
     },
 
     clear: function() {
@@ -173,14 +175,19 @@ $(function(){
       if (Tallys.length) {
         this.main.show();
         var titles = Tallys.pluck("title");
+        var counts = Tallys.pluck("count");
+        var autosource = new Array(titles.length);
+        for (var i=0; i<titles.length; i++) {
+          autosource[i] = { label: titles[i] + " " + counts[i], value: titles[i] };
+        }
         $("#new-tally").autocomplete({
-          source: titles,
+          source: autosource,
           minLength: 1,
-          select: function(event, ui) {
+          /*  select: function(event, ui) {
             var selectModel = Tallys.where({title: ui.item.value})[0];
             console.log(selectModel);
-            selectModel.increment();
-          }
+            selectModel.increment(); 
+          } */
         });
       } else {
         this.main.hide();
@@ -226,8 +233,15 @@ $(function(){
       if (e.keyCode != 13) return;
       if (!this.input.val()) return;
 
-      Tallys.create({title: this.input.val()});
-      this.input.val('');
+      var selectModel = Tallys.where({title: this.input.val()})[0];
+      if (!selectModel) {
+        Tallys.create({title: this.input.val()});
+        this.input.val('');
+        return;
+      } else {
+        selectModel.increment();
+        this.input.val('');
+      }
     }
 
   });
